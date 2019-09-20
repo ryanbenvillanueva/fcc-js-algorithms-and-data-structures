@@ -9,11 +9,17 @@ function whatIsInAName(collection, source) {
     // What's in a name?
     var arr = [];
     // Only change code below this line
-    let keys = Object.keys(source);
-
+    let sourceKeys = Object.keys(source);
     
-    console.log(keys);
-    
+   return collection.filter(function(object){
+      for (let sourceKey of sourceKeys) {
+        if (!object.hasOwnProperty(sourceKey) || object[sourceKey] !== source[sourceKey]) {
+           return false;
+        }
+      }
+      return true;
+    }); 
+  
     // Only change code above this line
     return arr;
   }
