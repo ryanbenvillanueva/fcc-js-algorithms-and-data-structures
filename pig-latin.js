@@ -10,27 +10,26 @@
 // Remember to use Read-Search-Ask if you get stuck. Try to pair program. Write your own code.
 
 function translatePigLatin(str) {
-    const firstVowel = str.match(/[aeiou]/);
-    const index = str.indexOf(firstVowel);
-    let checkForVowels = true;
+    const vowelMatch = str.match(/[aeiou]/);            // Check the string for any vowel
+    const vowelIndex = str.indexOf(vowelMatch);         // Find the index of a vowel if it exists;
 
-    for (let i = 0; i < str.length; i++) {
-        if (str[i] === 'a' || str[i] === 'e' || str[i] === 'i' || str[i] === 'o' || str[i] === 'u') {
-            checkForVowels = true;
-        } else {
-            checkForVowels = false;
-        }
+
+    if (vowelIndex === -1) {                            // When the string has no vowels
+        return str + 'ay';                              // Return the string and end it with 'ay'
     }
 
-    if (checkForVowels === true) {
-        if (index > 0) {
-            return (str.slice(index) + str.slice(0, index) + 'ay');
-        }
-        return str + 'way';
-
-    } else {
-        return str + 'ay';
+    if (vowelIndex === 0) {                             // When the string starts with a vowel
+        return str + 'way';                             // Return the string and end it with 'way'
     }
+
+    if (vowelIndex > 0) {                               // When the string starts with a consonant
+        return (str.slice(vowelIndex) + str.slice(0, vowelIndex) + 'ay');       // Return the string removing the consonant(s) and placing
+    }                                                                           // it at the end before adding 'ay'
 }
 
 translatePigLatin("consonant");
+translatePigLatin("california");
+translatePigLatin("paragraphs");
+translatePigLatin("glove");
+translatePigLatin("eight");
+translatePigLatin("blyth");
