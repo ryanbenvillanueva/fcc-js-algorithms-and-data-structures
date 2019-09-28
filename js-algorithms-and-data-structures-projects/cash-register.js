@@ -71,11 +71,8 @@ const currencyUnits = [{
 
 function checkCashRegister(price, cash, cid) {
     const change = cash - price;
-    const totalCashInDrawer = cid.reduce((totalCash, currencyUnits) => totalCash + currencyUnits[i][1], 0.0);
-    // let  changeResult = currencyUnits.reduce(function(accumulator, currentValue, index) {
-    //     if (change >= currentValue.amount)
-    // }, []);
-
+    const totalCashInDrawer = cid.reduce((accumulator, currentValue) => accumulator + currentValue[i][1], 0.0);
+    
     if (totalCashInDrawer < change) {
         return {
             status: "INSUFFICIENT_FUNDS",
@@ -89,7 +86,21 @@ function checkCashRegister(price, cash, cid) {
     }
 
     cid = cid.reverse();
-
+    let  changeResult = currencyUnits.reduce(function(accumulator, currentValue, index) {
+        if (change >= currentValue.amount) {
+            let totalAmount = 0.0;
+            while (change > currentValue.amount && cid[index][i][1] >= currentValue.amount) {
+                totalAmount += currentValue.amount;
+                change -= currentValue.amount;
+                change = Math.round(change * 100) / 100;
+                cid[index[i]] -= currentValue.amount;
+            } 
+            accumulator.push([currentValue.name, totalAmount]);
+            return accumulator;
+        } else {
+            return accumulator;
+        }
+    }, []);
 
     // Here is your change, ma'am.
     return change;
